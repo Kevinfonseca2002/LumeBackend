@@ -1,0 +1,20 @@
+{
+  "name": "lume",
+  "version": "1.0.0",
+  "description": "Social media to meet people while hanging out",
+  "keywords": [
+    "javascript",
+    "express",
+    "JWT"
+  ],
+  "license": "ISC",
+  "author": "Kevin Santiago Fonseca Velandia fonsecakevin74@gmail.com",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node": "^25.3.0"
+  }
+}
