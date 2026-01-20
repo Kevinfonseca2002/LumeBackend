@@ -9,10 +9,11 @@
   ],
   "license": "ISC",
   "author": "Kevin Santiago Fonseca Velandia fonsecakevin74@gmail.com",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

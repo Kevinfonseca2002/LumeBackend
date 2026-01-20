@@ -1,4 +1,5 @@
 import express from "express" 
+
 import dbConnection from "./src/app/config/mongo.config.js"
 import userRoutes from "./src/app/routes/users.routes.js"
 import eventRoutes from "./src/app/routes/events.routes.js"
