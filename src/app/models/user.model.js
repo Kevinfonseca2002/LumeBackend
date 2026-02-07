@@ -3,7 +3,11 @@ import { Schema, model } from "mongoose";
 const userSchema = new Schema ({
     img:{
         type:String,
-        required:true
+    },
+    role: {
+        type: String,
+        enum: ["store","user"],
+        required: [true, 'Rol is required']
     },
     name:{
         type:String,
@@ -29,6 +33,22 @@ const userSchema = new Schema ({
         type:String,
         required:true
     },
+    facebookLink:{
+        type: String,
+        required: false
+    },
+    instagramLink:{
+        type: String,
+        required: false
+    },
+    xLink:{
+        type:String,
+        required: false
+    },
+    tiktokLink:{
+        type:String,
+        required: false
+    }
 
 
 },{timestamps:true})

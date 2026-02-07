@@ -18,10 +18,14 @@ const dbCreateUser = async (input)=>{
 const dbPatchUser= async (data,input)=>{
     return await userModel.updateOne({data},input,{new:true})
 }
+const dbGetUserByEmail = async (email)=>{
+    return await userModel.findOne({email})
+}
 
 
 
 export {
+    dbGetUserByEmail,
     dbDeleteAllUser,
     dbGetAllUsers,
     dbGetUserById,

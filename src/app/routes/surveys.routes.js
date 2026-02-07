@@ -6,10 +6,10 @@ const router = Router();
 
 //Routes here
 
-router.get("/",(req, res),getAllSurveys)
-router.post("/",(req, res),createSurvey)
-router.delete("/:id",(req, res), deleteSurvey)
-router.patch("/:id",(req, res), patchSurvey)
-router.get("/:id",(req, res), getSurveyById)
+router.get("/",getAllSurveys)
+router.post("/",createSurvey)
+router.delete("/:id", deleteSurvey)
+router.patch("/:id", patchSurvey)
+router.get("/:id", getSurveyById)
 
 export default router;
