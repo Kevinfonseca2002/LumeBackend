@@ -5,7 +5,7 @@ import { dbGetUserByEmail } from "../services/users.service.js"
 const loginUser = async (req,res)=>{
     try {
         // Paso 1: Buscar el dato por un valor unico en este caso el email
-        data= req.body
+        const data= req.body
 
         const userFound = await dbGetUserByEmail(data.email)
 
