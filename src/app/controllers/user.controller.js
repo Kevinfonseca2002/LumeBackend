@@ -1,4 +1,5 @@
 
+import { encryptedPassword } from "../helpers/bcrypt.helper.js"
 import { dbDeleteAllUser, dbGetAllUsers, dbGetUserById, dbDeleteUserById, dbCreateUser, dbPatchUser } from "../services/users.service.js"
 
 
@@ -11,7 +12,7 @@ try {
         getUsers
     })
 } catch (error) {
-    console.error(error),
+    console.error(error)
     res.json({
         message:'Could not retrieve users, Please try again'
     })
@@ -29,7 +30,7 @@ const deleteAllUsers = async (req,res) =>{
         })
         
     } catch (error) {
-        console.error(error),
+        console.error(error)
         res.json({
             message:'Users could not be deleted, Please try again'
         })
@@ -50,7 +51,7 @@ const getUserById = async (req,res)=>{
         })
         
     } catch (error) {
-        console.error(error),
+        console.error(error)
         res.json({
             message:'Could not retrieve user, Please try again'
         })
@@ -69,7 +70,7 @@ const deleteUserById = async (req,res)=>{
             deletedUserById
         })
     } catch (error) {
-        console.error(error),
+        console.error(error)
         res.json({
             message:'Could not delete user, Please try again'
         })
@@ -80,8 +81,11 @@ const deleteUserById = async (req,res)=>{
 const createUser = async (req,res)=>{
     try {
         const input = req.body
+
+        input.password = await encryptedPassword(input.password)
     
         const newUser= await dbCreateUser(input)
+
     
         res.json({
             message: "New user created successfully",
@@ -89,7 +93,7 @@ const createUser = async (req,res)=>{
         })
         
     } catch (error) {
-        console.error(error),
+        console.error(error)
         res.json({
             message:'Could not create user, Please try again'
         })
@@ -109,7 +113,7 @@ const patchUser= async (req,res)=>{
         })
 
     } catch (error) {
-        console.error(error),
+        console.error(error)
         res.json({
             message:'Could not update user, Please try again'
         })

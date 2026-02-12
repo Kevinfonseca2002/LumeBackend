@@ -8,15 +8,15 @@ const loginUser = async (req,res)=>{
         const data= req.body
 
         const userFound = await dbGetUserByEmail(data.email)
-
         if(!userFound){
             res.json({
                 msg: 'User not found, please try again'
             })
         }
-
+        
         // Paso 2: Validar contraseña con bcrypt
-        const validPassword = validatePassword(data.password, userFound.password)
+        const validPassword = await validatePassword(data.password, userFound.password)
+       
 
         if(!validPassword){
             res.json({
@@ -33,17 +33,18 @@ const loginUser = async (req,res)=>{
         };
 
         const token = generateToken(payload)
-
+ 
         // Paso 4: Transformar el objeto de mongoose (BSON) en (JSON) para poderlo enviar y borrar informacion sensible en este caso la contraseña
 
         const jsonUser = userFound.toObject();
         delete jsonUser.password;
         
-        res.json({token, user: jsonUser})
+        res.json({ token, user: jsonUser})
 
         
     } catch (error) {
         console.error(error)
+        res.json({ msg: 'Error al intentar loguear al usuario' })
     }
 }
 

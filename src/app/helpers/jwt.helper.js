@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 
 const generateToken = (payload)=>{
     try {
-        jwt.sign(
+        return jwt.sign(
             payload,
             process.env.JWT_SEED,
             {expiresIn: "1h"}
-            )
+        )
         
     } catch (error) {
         console.error(error

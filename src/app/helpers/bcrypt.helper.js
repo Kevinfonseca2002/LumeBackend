@@ -1,24 +1,21 @@
 import bcrypt from 'bcrypt'
 
-const encryptedPassword = (originalPassword)=>{
+const encryptedPassword = async (originalPassword)=>{
     try {
         
-        const salt = bcrypt.genSaltSync(7);
+        const salt =await bcrypt.genSalt(7);
     
-        const hash = bcrypt.hashSync(
-            originalPassword,
-            salt
-        )
-        return hash
+        return await bcrypt.hash( originalPassword, salt )
+
     } catch (error) {
         console.error(error)        
     }
     
 }
 
-const validatePassword = (inputPassword, hashedPassword)=>{
+const validatePassword = async (inputPassword, hashedPassword)=>{
     try {
-        return bcrypt.compareSync(inputPassword,hashedPassword)
+        return await bcrypt.compare(inputPassword,hashedPassword)
         } catch (error) {
         console.error(error)
     }
