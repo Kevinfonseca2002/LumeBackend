@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const dbConnection = async () => {
-    await mongoose.connect("mongodb://localhost:27017/LumeDB")
+    await mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/LumeDB")
         .then(()=>{
         console.log("Connected to MongoDB")
     })
