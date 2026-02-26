@@ -5,6 +5,10 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
+    description:{
+        type: String,
+        required:true
+    },
     date:{
         type: Date,
         required:true,
@@ -13,19 +17,14 @@ const eventSchema = new Schema({
         type: Number,
         required: true
     },
+    location:{
+        type: String,
+        required:true
+    },
     attendees:{
-        type: Number,
-        required: false,
-        default: 0,
-        minLenght: 0
+        type: String,
+        required:false
     },
-    participation:{
-        type: Number,
-        required: false,
-        default: 0,
-        minLenght: 0
-    },
-
     surveyId:{
         type: Schema.Types.ObjectId,
         ref: 'surveys'
