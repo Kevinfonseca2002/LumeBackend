@@ -43,10 +43,10 @@ const getUserById = async (req,res)=>{
     try {
         const data = req.params.id
 
-        const userById=await dbGetUserById(data)
+        const userById= await dbGetUserById(data)
 
         res.json({
-            message: `User with the id ${data} retrieved successfully`,
+            message: `Check response status`,
             userById
         })
         

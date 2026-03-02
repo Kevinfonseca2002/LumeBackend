@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema ({
-    img:{
+    userImg:{
         type:String,
     },
     role: {
@@ -9,7 +9,7 @@ const userSchema = new Schema ({
         enum: ["store","user"],
         required: [true, 'Rol is required']
     },
-    name:{
+    userName:{
         type:String,
         required:true
     },

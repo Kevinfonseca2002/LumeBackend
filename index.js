@@ -5,6 +5,7 @@ import userRoutes from "./src/app/routes/users.routes.js"
 import eventRoutes from "./src/app/routes/events.routes.js"
 import surveyRoutes from "./src/app/routes/surveys.routes.js"
 import authRoute from "./src/app/routes/auth.route.js"
+import postsRoute from "./src/app/routes/posts.routes.js"
 import cors from "cors";
 
 const app = express()
@@ -19,6 +20,7 @@ dbConnection()
 app.use("/users",userRoutes)
 app.use("/events",eventRoutes)
 app.use("/surveys",surveyRoutes)
+app.use("/posts", postsRoute)
 app.use("/auth",authRoute)
 
 app.listen( PORT, ()=>{
