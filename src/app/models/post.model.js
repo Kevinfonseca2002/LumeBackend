@@ -1,10 +1,6 @@
 import { Schema, model } from "mongoose";
 
 const postSchema = new Schema ({
-    userImg: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-    },
     userName:{
         type: Schema.Types.ObjectId,
         ref: 'users'

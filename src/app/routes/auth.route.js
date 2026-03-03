@@ -9,6 +9,6 @@ const router = Router();
 
 router.post("/login",loginUser)
 router.post("/register", createUser) 
-router.get("/renew-token",[authenticationUser, authorizationUser(process.env.AUTHORIZED_ROLES)], renewToken)
+router.get("/renew-token",[authenticationUser, authorizationUser(["store","user"])], renewToken)
 
 export default router 

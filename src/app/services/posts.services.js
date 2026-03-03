@@ -5,7 +5,7 @@ const dbCreatePost = async (data) => {
 }
 
 const dbAllPost = async () => {
-    return await postModel.find()
+    return await postModel.find().populate(['userName', 'eventName'])
 }
 
 const dbDeletePost = async (data) => {

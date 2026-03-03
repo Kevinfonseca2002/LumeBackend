@@ -8,7 +8,9 @@ const surveySchema = new Schema ({
     rating:{
         type: Number,
         required: true,
-        default: 5
+        default: 5,
+        minlenght: [0, "Rating can´t be lower than 0"],
+        maxlength: [5, "Rating can´t be higher than 5"]
     },
     title:{
         type: String,
