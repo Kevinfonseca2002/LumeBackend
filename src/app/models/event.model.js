@@ -21,9 +21,19 @@ const eventSchema = new Schema({
         type: String,
         required:true
     },
-    attendees:{
+    storeId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    category: {
         type: String,
-        required:false
+        enum: ["music", "food", "sports", "art", "tech", "other"],
+        default: "other"
+    },
+    isPublic: {
+        type: Boolean,
+        default: true
     },
     surveyId:{
         type: Schema.Types.ObjectId,

@@ -48,7 +48,11 @@ const userSchema = new Schema ({
     tiktokLink:{
         type:String,
         required: false
-    }
+    },
+    events: [{
+        type: Schema.Types.ObjectId,
+        ref: 'events'
+    }],
 
 
 },{timestamps:true})

@@ -5,7 +5,7 @@ const dbCreateEvent = async (data) => {
 }
 
 const dbAllEvents = async () => {
-    return await eventModel.find()
+    return await eventModel.find().populate(["surveyId", "storeId"])
 }
 
 const dbDeleteEvent = async (data) => {
@@ -19,10 +19,15 @@ const dbPatchEvent = async (id, data) => {
 const dbEventById = async (data) => {
     return await eventModel.findById(data);
 }
+
+const dbGetEventsByStore = async (storeId)=>{
+    return await eventModel.find({storeId})
+}
 export {
     dbCreateEvent,
     dbAllEvents,
     dbDeleteEvent,
     dbPatchEvent,
-    dbEventById
+    dbEventById,
+    dbGetEventsByStore
     };

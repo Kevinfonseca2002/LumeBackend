@@ -11,7 +11,7 @@ const postSchema = new Schema ({
     },
     comment:{
         type: String,
-        required: false
+        required: true
     },
     postImg:{
         type: String

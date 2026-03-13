@@ -10,7 +10,7 @@ const loginUser = async (req,res)=>{
         const userFound = await dbGetUserByEmail(data.email)
         if(!userFound){
             res.json({
-                msg: 'User not found, please try again'
+                msg: 'User not found, please try again',
             })
         }
         

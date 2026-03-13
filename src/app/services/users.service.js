@@ -1,13 +1,13 @@
 import userModel from "../models/user.model.js";
 
 const dbGetAllUsers = async ()=>{
-    return await userModel.find()
+    return await userModel.find().populate("events")
 }
 const dbDeleteAllUser = async ()=>{
     return await userModel.deleteMany()
 }
 const dbGetUserById = async (data)=>{
-    return await userModel.findById(data)
+    return await userModel.findById(data).populate("events")
 }
 const dbDeleteUserById = async (data)=>{
     return await userModel.findByIdAndDelete(data)
