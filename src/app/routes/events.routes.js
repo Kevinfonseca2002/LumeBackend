@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEvents, getAllEvents, deleteEvent, patchEvent, getEventById, getStoreEvents } from "../controllers/event.controller.js";
+import { createEvents, getAllEvents, deleteEvent, patchEvent, getEventById, getStoreEvents, getEventsByStatus, updateEventStatus, addAttendee, removeAttendee } from "../controllers/event.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authorizationUser from "../middlewares/authorization.middleware.js";
 
@@ -14,5 +14,10 @@ router.delete("/:id", deleteEvent, [authenticationUser, authorizationUser(["stor
 router.patch("/:id",patchEvent, [authenticationUser, authorizationUser(["store"])])
 router.get("/:id", getEventById, [authenticationUser, authorizationUser(["store","user"])])
 router.get("/store/:storeId", getStoreEvents,[authenticationUser, authorizationUser(["store","user"])] )
+router.get('/store/:storeId/:status', getEventsByStatus,[authenticationUser, authorizationUser(["store","user"])])
+router.patch('/status/:eventId', updateEventStatus,[authenticationUser, authorizationUser(["store","user"])])
+router.post('/attendee/:eventId', addAttendee,[authenticationUser, authorizationUser(["store","user"])])
+router.delete('/attendee/:eventId', removeAttendee,[authenticationUser, authorizationUser(["store","user"])])
+
 
 export default router;

@@ -1,47 +1,60 @@
 import { Schema, model } from "mongoose";
 
-const eventSchema = new Schema({
+const eventSchema = new Schema(
+  {
     eventName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    eventDescription:{
-        type: String,
-        required:true
+    eventDescription: {
+      type: String,
+      required: true,
     },
-    date:{
-        type: Date,
-        required:true,
+    date: {
+      type: Date,
+      required: true,
     },
-    time:{
-        type: Number,
-        required: true
+    time: {
+      type: Number,
+      required: true,
     },
-    location:{
-        type: String,
-        required:true
+    location: {
+      type: String,
+      required: true,
     },
     storeId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
     },
     category: {
-        type: String,
-        enum: ["music", "food", "sports", "art", "tech", "other"],
-        default: "other"
+      type: String,
+      enum: ["music", "food", "sports", "art", "tech", "other"],
+      default: "other",
     },
     isPublic: {
-        type: Boolean,
-        default: true
+      type: Boolean,
+      default: true,
     },
-    surveyId:{
+    surveyId: {
+      type: Schema.Types.ObjectId,
+      ref: "surveys",
+    },
+    status: {
+      type: String,
+      enum: ["upcoming", "completed", "cancelled"],
+      default: "upcoming",
+    },
+    attendees: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'surveys'
-    }
+        ref: "users",
+      },
+    ],
+  },
+  { timestamps: true },
+);
 
-},{timestamps:true})
+const eventModel = model("events", eventSchema);
 
-const eventModel = model('events',eventSchema)
-
-export default eventModel
+export default eventModel;

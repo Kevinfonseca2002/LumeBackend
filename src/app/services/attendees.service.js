@@ -1,4 +1,5 @@
 import attendanceModel from "../models/attendees.model.js";
+import eventModel from "../models/event.model.js";
 
 const dbCreateAttendees = async (data) => {
     return await attendanceModel.create(data);
@@ -11,8 +12,10 @@ const dbAllAttendees = async () => {
 const dbDeleteAttendees = async (data) => {
     return await attendanceModel.findByIdAndDelete(data);
 }
+
+
 export {
         dbCreateAttendees,
         dbAllAttendees,
-        dbDeleteAttendees
+        dbDeleteAttendees,
     };

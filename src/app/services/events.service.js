@@ -23,11 +23,43 @@ const dbEventById = async (data) => {
 const dbGetEventsByStore = async (storeId)=>{
     return await eventModel.find({storeId})
 }
+
+const dbGetEventsByStatus = async (storeId, status) => {
+    return await eventModel.find({ storeId, status }).sort({ date: 1 })
+}
+
+const dbUpdateEventStatus = async (eventId, status) => {
+    return await eventModel.findByIdAndUpdate(
+        eventId,
+        { status },
+        { new: true }
+    )
+}
+
+const dbAddAttendee = async (eventId, userId) => {
+    return await eventModel.findByIdAndUpdate(
+        eventId,
+        { $addToSet: { attendees: userId } },
+        { new: true }
+    )
+}
+
+const dbRemoveAttendee = async (eventId, userId) => {
+    return await eventModel.findByIdAndUpdate(
+        eventId,
+        { $pull: { attendees: userId } },
+        { new: true }
+    )
+}
 export {
     dbCreateEvent,
     dbAllEvents,
     dbDeleteEvent,
     dbPatchEvent,
     dbEventById,
-    dbGetEventsByStore
+    dbGetEventsByStore,
+    dbUpdateEventStatus,
+    dbGetEventsByStatus,
+    dbAddAttendee,
+    dbRemoveAttendee
     };

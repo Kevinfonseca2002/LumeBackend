@@ -5,6 +5,10 @@ import {
   dbPatchEvent,
   dbEventById,
   dbGetEventsByStore,
+  dbGetEventsByStatus,
+  dbUpdateEventStatus,
+  dbAddAttendee,
+  dbRemoveAttendee,
 } from "../services/events.service.js";
 import { dbPatchUser } from "../services/users.service.js";
 
@@ -19,7 +23,6 @@ const createEvents = async (req, res) => {
     const updatedStore = await dbPatchUser(storeId,{ $push: { events: createdEvent._id } },
     );
 
-    // 👇 Si no encuentra la tienda, lanza un error claro
     if (!updatedStore) {
       return res.status(404).json({
         message: "Store not found, event created but not linked",
@@ -29,7 +32,7 @@ const createEvents = async (req, res) => {
     res.status(201).json({
       message: "Event created successfully",
       event: createdEvent,
-      storeEvents: updatedStore.events, // 👈 verifica en Postman que se agregó
+      storeEvents: updatedStore.events,
     });
   } catch (error) {
     res.status(500).json({
@@ -116,6 +119,57 @@ const getStoreEvents = async (req, res) => {
   }
 };
 
+const getEventsByStatus = async (req, res) => {
+    try {
+        const { storeId, status } = req.params
+
+        const events = await dbGetEventsByStatus(storeId, status)
+
+        res.status(200).json({ message: "Events fetched successfully", events })
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching events by status", error })
+    }
+}
+
+const updateEventStatus = async (req, res) => {
+    try {
+        const { eventId } = req.params
+        const { status } = req.body
+
+        const updatedEvent = await dbUpdateEventStatus(eventId, status)
+
+        res.status(200).json({ message: "Status updated successfully", event: updatedEvent })
+    } catch (error) {
+        res.status(500).json({ message: "Error updating status", error })
+    }
+}
+
+const addAttendee = async (req, res) => {
+    try {
+        const { eventId } = req.params
+        const { userId } = req.body
+
+        const updatedEvent = await dbAddAttendee(eventId, userId)
+
+        res.status(200).json({ message: "Attendee added successfully", event: updatedEvent })
+    } catch (error) {
+        res.status(500).json({ message: "Error adding attendee", error })
+    }
+}
+
+const removeAttendee = async (req, res) => {
+    try {
+        const { eventId } = req.params
+        const { userId } = req.body
+
+        const updatedEvent = await dbRemoveAttendee(eventId, userId)
+
+        res.status(200).json({ message: "Attendee removed successfully", event: updatedEvent })
+    } catch (error) {
+        res.status(500).json({ message: "Error removing attendee", error })
+    }
+}
+
 export {
   createEvents,
   getAllEvents,
@@ -123,4 +177,8 @@ export {
   patchEvent,
   getEventById,
   getStoreEvents,
+  getEventsByStatus,
+  addAttendee,
+  removeAttendee,
+  updateEventStatus
 };
