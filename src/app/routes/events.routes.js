@@ -13,6 +13,6 @@ router.post("/store/:storeId", createEvents, [authenticationUser, authorizationU
 router.delete("/:id", deleteEvent, [authenticationUser, authorizationUser(["store"])]);
 router.patch("/:id",patchEvent, [authenticationUser, authorizationUser(["store"])])
 router.get("/:id", getEventById, [authenticationUser, authorizationUser(["store","user"])])
-router.get("/store/:storeId/events", getStoreEvents,[authenticationUser, authorizationUser(["store","user"])] )
+router.get("/store/:storeId", getStoreEvents,[authenticationUser, authorizationUser(["store","user"])] )
 
 export default router;
