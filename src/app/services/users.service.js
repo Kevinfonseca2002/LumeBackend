@@ -7,7 +7,13 @@ const dbDeleteAllUser = async ()=>{
     return await userModel.deleteMany()
 }
 const dbGetUserById = async (data)=>{
-    return await userModel.findById(data).populate("events")
+    return await userModel.findById(data).populate({
+            path: 'events',
+            populate: {
+                path: 'attendees',
+                model: 'users',
+            }
+        })
 }
 const dbDeleteUserById = async (data)=>{
     return await userModel.findByIdAndDelete(data)
