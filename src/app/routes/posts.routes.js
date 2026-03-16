@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllPost, deletePost, createPost, patchPost, getPostById } from "../controllers/posts.controller.js";
+import { getAllPost, deletePost, createPost, patchPost, getPostById, getPostsByUser } from "../controllers/posts.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authorizationUser from "../middlewares/authorization.middleware.js";
 import upload from "../middlewares/upload.middleware.js";
@@ -14,5 +14,6 @@ router.post("/", [authenticationUser, authorizationUser(["store","user"])], uplo
 router.delete("/:id", deletePost, [authenticationUser, authorizationUser(["user"])]);
 router.patch("/:id", patchPost, [authenticationUser, authorizationUser(["user"])])
 router.get("/:id", getPostById, [authenticationUser, authorizationUser(["user"])])
+router.get('/user/:userId', [authenticationUser, authorizationUser(["store","user"])], getPostsByUser)
 
 export default router

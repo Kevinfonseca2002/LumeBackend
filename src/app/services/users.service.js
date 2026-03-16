@@ -27,6 +27,31 @@ const dbPatchUser= async (data,input)=>{
 const dbGetUserByEmail = async (email)=>{
     return await userModel.findOne({email})
 }
+const dbAddPostToUser = async (userId, postId) => {
+    return await userModel.findByIdAndUpdate(
+        userId,
+        { $push: { posts: postId } },
+        { new: true }
+    )
+}
+const dbAddRegisteredEvent = async (userId, eventId) => {
+    return await userModel.findByIdAndUpdate(
+        userId,
+        { $addToSet: { registeredEvents: eventId } },
+        { new: true }
+    )
+}
+
+const dbGetRegisteredEvents = async (userId) => {
+    return await userModel.findById(userId)
+        .populate({
+            path: 'registeredEvents',
+            populate: {
+                path: 'storeId',
+                model: 'users',
+            }
+        })
+}
 
 
 
@@ -37,5 +62,8 @@ export {
     dbGetUserById,
     dbDeleteUserById,
     dbCreateUser,
-    dbPatchUser
+    dbPatchUser,
+    dbAddPostToUser,
+    dbAddRegisteredEvent,
+    dbGetRegisteredEvents
 }

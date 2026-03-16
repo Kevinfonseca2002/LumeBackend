@@ -19,10 +19,18 @@ const dbPatchPost = async (id, data) => {
 const dbPostById = async (data) => {
     return await postModel.findById(data);
 }
+
+const dbGetPostsByUser = async (userId) => {
+    return await postModel.find({ userName: userId })
+        .populate('userName', 'userName userImg')
+        .populate('eventName', 'eventName eventDescription')
+        .sort({ createdAt: -1 })
+}
 export {
         dbAllPost,
         dbCreatePost,
         dbDeletePost,
         dbPatchPost,
-        dbPostById
+        dbPostById,
+        dbGetPostsByUser
     };

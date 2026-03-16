@@ -53,6 +53,14 @@ const userSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: 'events'
     }],
+        posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'posts'
+    }],
+    registeredEvents: [{
+        type: Schema.Types.ObjectId,
+        ref: 'events'
+    }]
 
 
 },{timestamps:true})

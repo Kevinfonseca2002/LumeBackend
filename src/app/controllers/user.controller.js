@@ -6,6 +6,9 @@ import {
   dbDeleteUserById,
   dbCreateUser,
   dbPatchUser,
+  dbAddPostToUser,
+  dbAddRegisteredEvent,
+  dbGetRegisteredEvents
 } from "../services/users.service.js";
 
 const getAllUsers = async (req, res) => {
@@ -122,6 +125,37 @@ const patchUser = async (req, res) => {
   }
 };
 
+const addRegisteredEvent = async (req, res) => {
+    try {
+        const { userId } = req.params
+        const { eventId } = req.body
+
+        const updatedUser = await dbAddRegisteredEvent(userId, eventId)
+
+        res.status(200).json({ 
+            message: "Event registered successfully", 
+            user: updatedUser 
+        })
+    } catch (error) {
+        res.status(500).json({ message: "Error registering event", error })
+    }
+}
+
+const getRegisteredEvents = async (req, res) => {
+    try {
+        const { userId } = req.params
+
+        const user = await dbGetRegisteredEvents(userId)
+
+        res.status(200).json({ 
+            message: "Registered events fetched successfully", 
+            registeredEvents: user.registeredEvents 
+        })
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching registered events", error })
+    }
+}
+
 export {
   deleteAllUsers,
   getAllUsers,
@@ -129,4 +163,6 @@ export {
   deleteUserById,
   createUser,
   patchUser,
+  addRegisteredEvent,
+  getRegisteredEvents
 };

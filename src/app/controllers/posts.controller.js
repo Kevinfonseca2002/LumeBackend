@@ -2,9 +2,11 @@ import {
   dbAllPost,
   dbCreatePost,
   dbDeletePost,
+  dbGetPostsByUser,
   dbPatchPost,
   dbPostById,
 } from "../services/posts.services.js";
+import { dbAddPostToUser } from "../services/users.service.js";
 
 const createPost = async (req, res) => {
   try {
@@ -15,6 +17,10 @@ const createPost = async (req, res) => {
     }
 
     const createdPost = await dbCreatePost(input);
+
+    if (input.userName) {
+      await dbAddPostToUser(input.userName, createPost._id);
+    }
 
     res.status(201).json({
       message: "Post created successfully",
@@ -93,4 +99,19 @@ const patchPost = async (req, res) => {
   }
 };
 
-export { patchPost, createPost, getAllPost, deletePost, getPostById };
+const getPostsByUser = async (req, res) => {
+    try {
+        const { userId } = req.params
+
+        const posts = await dbGetPostsByUser(userId)
+
+        res.status(200).json({ 
+            message: "Posts fetched successfully", 
+            posts 
+        })
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching posts", error })
+    }
+}
+
+export { patchPost, createPost, getAllPost, deletePost, getPostById, getPostsByUser };
