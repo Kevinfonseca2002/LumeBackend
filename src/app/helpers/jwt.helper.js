@@ -18,7 +18,7 @@ const generateToken = (payload)=>{
 
 const validateToken = (token,)=>{
     try {
-        jwt.verify(
+       return jwt.verify(
             token,
             process.env.JWT_SEED
         ) 

@@ -51,6 +51,9 @@ const eventSchema = new Schema(
         ref: "users",
       },
     ],
+    eventImg: {
+      type: String,
+    },
   },
   { timestamps: true },
 );

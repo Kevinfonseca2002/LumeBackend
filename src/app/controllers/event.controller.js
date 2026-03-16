@@ -15,13 +15,17 @@ import { dbPatchUser } from "../services/users.service.js";
 const createEvents = async (req, res) => {
   try {
     const storeId = req.params.storeId;
-
     const input = req.body;
+
+    if (req.file) {
+      input.eventImg = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+    }
 
     const createdEvent = await dbCreateEvent({ ...input, storeId });
 
-    const updatedStore = await dbPatchUser(storeId,{ $push: { events: createdEvent._id } },
-    );
+    const updatedStore = await dbPatchUser(storeId, {
+      $push: { events: createdEvent._id },
+    });
 
     if (!updatedStore) {
       return res.status(404).json({
@@ -120,55 +124,61 @@ const getStoreEvents = async (req, res) => {
 };
 
 const getEventsByStatus = async (req, res) => {
-    try {
-        const { storeId, status } = req.params
+  try {
+    const { storeId, status } = req.params;
 
-        const events = await dbGetEventsByStatus(storeId, status)
+    const events = await dbGetEventsByStatus(storeId, status);
 
-        res.status(200).json({ message: "Events fetched successfully", events })
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching events by status", error })
-    }
-}
+    res.status(200).json({ message: "Events fetched successfully", events });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching events by status", error });
+  }
+};
 
 const updateEventStatus = async (req, res) => {
-    try {
-        const { eventId } = req.params
-        const { status } = req.body
+  try {
+    const { eventId } = req.params;
+    const { status } = req.body;
 
-        const updatedEvent = await dbUpdateEventStatus(eventId, status)
+    const updatedEvent = await dbUpdateEventStatus(eventId, status);
 
-        res.status(200).json({ message: "Status updated successfully", event: updatedEvent })
-    } catch (error) {
-        res.status(500).json({ message: "Error updating status", error })
-    }
-}
+    res
+      .status(200)
+      .json({ message: "Status updated successfully", event: updatedEvent });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating status", error });
+  }
+};
 
 const addAttendee = async (req, res) => {
-    try {
-        const { eventId } = req.params
-        const { userId } = req.body
+  try {
+    const { eventId } = req.params;
+    const { userId } = req.body;
 
-        const updatedEvent = await dbAddAttendee(eventId, userId)
+    const updatedEvent = await dbAddAttendee(eventId, userId);
 
-        res.status(200).json({ message: "Attendee added successfully", event: updatedEvent })
-    } catch (error) {
-        res.status(500).json({ message: "Error adding attendee", error })
-    }
-}
+    res
+      .status(200)
+      .json({ message: "Attendee added successfully", event: updatedEvent });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding attendee", error });
+  }
+};
 
 const removeAttendee = async (req, res) => {
-    try {
-        const { eventId } = req.params
-        const { userId } = req.body
+  try {
+    const { eventId } = req.params;
+    const { userId } = req.body;
 
-        const updatedEvent = await dbRemoveAttendee(eventId, userId)
+    const updatedEvent = await dbRemoveAttendee(eventId, userId);
 
-        res.status(200).json({ message: "Attendee removed successfully", event: updatedEvent })
-    } catch (error) {
-        res.status(500).json({ message: "Error removing attendee", error })
-    }
-}
+    res
+      .status(200)
+      .json({ message: "Attendee removed successfully", event: updatedEvent });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing attendee", error });
+  }
+};
 
 export {
   createEvents,
@@ -180,5 +190,5 @@ export {
   getEventsByStatus,
   addAttendee,
   removeAttendee,
-  updateEventStatus
+  updateEventStatus,
 };

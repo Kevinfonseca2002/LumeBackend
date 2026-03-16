@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createEvents, getAllEvents, deleteEvent, patchEvent, getEventById, getStoreEvents, getEventsByStatus, updateEventStatus, addAttendee, removeAttendee } from "../controllers/event.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authorizationUser from "../middlewares/authorization.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
 
 
 const router = Router();
@@ -9,7 +10,7 @@ const router = Router();
 //Routes here
 
 router.get("/", getAllEvents, [authenticationUser, authorizationUser(["store"])]);
-router.post("/store/:storeId", createEvents, [authenticationUser, authorizationUser(["store"])])
+router.post("/store/:storeId", [authenticationUser, authorizationUser(["store"])], upload.single('eventImg'), createEvents)
 router.delete("/:id", deleteEvent, [authenticationUser, authorizationUser(["store"])]);
 router.patch("/:id",patchEvent, [authenticationUser, authorizationUser(["store"])])
 router.get("/:id", getEventById, [authenticationUser, authorizationUser(["store","user"])])
