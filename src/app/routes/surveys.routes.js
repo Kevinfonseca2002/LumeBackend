@@ -8,10 +8,10 @@ const router = Router();
 
 //Routes here
 
-router.get("/",getAllSurveys, [authenticationUser, authorizationUser(["store"])])
-router.post("/",createSurvey, [authenticationUser, authorizationUser(["store"])])
-router.delete("/:id", deleteSurvey, [authenticationUser, authorizationUser(["store"])])
-router.patch("/:id", patchSurvey, [authenticationUser, authorizationUser(["store"])])
-router.get("/:id", getSurveyById, [authenticationUser, authorizationUser(["store"])])
+router.get("/",[authenticationUser, authorizationUser(["store"])],getAllSurveys, )
+router.post("/",[authenticationUser, authorizationUser(["store"])],createSurvey, )
+router.delete("/:id",[authenticationUser, authorizationUser(["store"])], deleteSurvey, )
+router.patch("/:id",[authenticationUser, authorizationUser(["store"])], patchSurvey, )
+router.get("/:id", [authenticationUser, authorizationUser(["store"])],getSurveyById, )
 
 export default router;

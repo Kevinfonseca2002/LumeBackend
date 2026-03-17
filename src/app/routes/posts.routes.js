@@ -9,11 +9,11 @@ import upload from "../middlewares/upload.middleware.js";
 const router = Router()
 
 
-router.get("/",getAllPost, [authenticationUser, authorizationUser(["user"])] );
+router.get("/",[authenticationUser, authorizationUser(["user"])],getAllPost );
 router.post("/", [authenticationUser, authorizationUser(["store","user"])], upload.single('postImg'), createPost)
-router.delete("/:id", deletePost, [authenticationUser, authorizationUser(["user"])]);
-router.patch("/:id", patchPost, [authenticationUser, authorizationUser(["user"])])
-router.get("/:id", getPostById, [authenticationUser, authorizationUser(["user"])])
+router.delete("/:id",[authenticationUser, authorizationUser(["user"])] ,deletePost,);
+router.patch("/:id",[authenticationUser, authorizationUser(["user"])] ,patchPost)
+router.get("/:id",[authenticationUser, authorizationUser(["user"])] ,getPostById)
 router.get('/user/:userId', [authenticationUser, authorizationUser(["store","user"])], getPostsByUser)
 
 export default router

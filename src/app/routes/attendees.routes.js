@@ -8,8 +8,8 @@ const router = Router();
 
 //Routes here
 
-router.get("/", getAllAttendees, [authenticationUser, authorizationUser(["store, user"])]);
-router.post("/", createAttendee, [authenticationUser, authorizationUser(["store, user"])])
-router.delete("/:id",deleteAttendees, [authenticationUser, authorizationUser(["store, user"])]);
+router.get("/",[authenticationUser, authorizationUser(["store, user"])] ,getAllAttendees );
+router.post("/", [authenticationUser, authorizationUser(["store, user"])],createAttendee)
+router.delete("/:id",[authenticationUser, authorizationUser(["store, user"])],deleteAttendees);
 
 export default router;
