@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(cors());
 dbConnection()
 
+app.get('/health', (req,res)=>{
+    res.json({path: '/health', msg: 'Sirve Get Health '})
+})
 
 app.use("/users",userRoutes)
 app.use("/events",eventRoutes)
