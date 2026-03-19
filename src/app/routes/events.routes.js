@@ -9,7 +9,7 @@ const router = Router();
 
 //Routes here
 
-router.get("/", [authenticationUser, authorizationUser(["store"])],getAllEvents );
+router.get("/", [authenticationUser, authorizationUser(["store","user"])],getAllEvents );
 router.post("/store/:storeId", [authenticationUser, authorizationUser(["store"])], upload.single('eventImg'), createEvents)
 router.delete("/:id", [authenticationUser, authorizationUser(["store"])],deleteEvent );
 router.patch("/:id",[authenticationUser, authorizationUser(["store"])],patchEvent)
